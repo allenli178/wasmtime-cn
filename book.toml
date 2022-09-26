@@ -1,6 +1,0 @@
-[book]
-authors = ["allenli178"]
-language = "cn"
-multilingual = false
-src = "src"
-title = "wasmtime-cn"
