@@ -1,6 +1,6 @@
 [book]
 authors = ["allenli178"]
-language = "en"
+language = "cn"
 multilingual = false
 src = "src"
 title = "wasmtime-cn"
