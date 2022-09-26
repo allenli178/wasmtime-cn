@@ -4,3 +4,5 @@ language = "cn"
 multilingual = false
 src = "src"
 title = "wasmtime-cn"
+
+[output.html]
