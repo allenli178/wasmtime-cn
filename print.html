@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> 介绍</a></li><li class="chapter-item expanded "><a href="Tutorial/index.html"><strong aria-hidden="true">2.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Tutorial/create-helloworld.html"><strong aria-hidden="true">2.1.</strong> 创建 hello-world.wasm</a></li><li class="chapter-item expanded "><a href="Tutorial/run-helloworld.html"><strong aria-hidden="true">2.2.</strong> 运行 hello-world.wasm</a></li></ol></li><li class="chapter-item expanded "><a href="Examples/index.html"><strong aria-hidden="true">3.</strong> 案例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Examples/md-parser.html"><strong aria-hidden="true">3.1.</strong> Markdown 解析器</a></li></ol></li><li class="chapter-item expanded "><a href="UsingWasm/index.html"><strong aria-hidden="true">4.</strong> 在你的语言中使用 WebAssembly</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/index.html"><strong aria-hidden="true">5.</strong> 使用 wasmtime CLI</a></li><li class="chapter-item expanded "><a href="WritingWasm/index.html"><strong aria-hidden="true">6.</strong> 编写 WebAssembly</a></li><li class="chapter-item expanded "><a href="Security/index.html"><strong aria-hidden="true">7.</strong> 安全</a></li><li class="chapter-item expanded "><a href="Contributing/index.html"><strong aria-hidden="true">8.</strong> 贡献</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> 介绍</a></li><li class="chapter-item expanded "><a href="Tutorial/index.html"><strong aria-hidden="true">2.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Tutorial/create-helloworld.html"><strong aria-hidden="true">2.1.</strong> 创建 hello-world.wasm</a></li><li class="chapter-item expanded "><a href="Tutorial/run-helloworld.html"><strong aria-hidden="true">2.2.</strong> 运行 hello-world.wasm</a></li></ol></li><li class="chapter-item expanded "><a href="Examples/index.html"><strong aria-hidden="true">3.</strong> 案例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Examples/md-parser.html"><strong aria-hidden="true">3.1.</strong> Markdown 解析器</a></li><li class="chapter-item expanded "><a href="Examples/debugging-webassembly.html"><strong aria-hidden="true">3.2.</strong> 调试 WebAssembly</a></li></ol></li><li class="chapter-item expanded "><a href="UsingWasm/index.html"><strong aria-hidden="true">4.</strong> 在你的语言中使用 WebAssembly</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/index.html"><strong aria-hidden="true">5.</strong> 使用 wasmtime CLI</a></li><li class="chapter-item expanded "><a href="WritingWasm/index.html"><strong aria-hidden="true">6.</strong> 编写 WebAssembly</a></li><li class="chapter-item expanded "><a href="Security/index.html"><strong aria-hidden="true">7.</strong> 安全</a></li><li class="chapter-item expanded "><a href="Contributing/index.html"><strong aria-hidden="true">8.</strong> 贡献</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -285,6 +285,40 @@ I am example markdown for this demo!
 &lt;p&gt;I am example markdown for this demo!&lt;/p&gt;
 </code></pre>
 <p>万岁！ 我们能够编写一个 Wasm 模块，它使用 WASI 读取 markdown 文件，解析 markdown，并将输出写入标准输出！ 继续阅读以查看更多使用 Wasmtime 从 CLI 甚至嵌入到你的应用程序中执行 Wasm 模块的示例！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="调试-webassembly"><a class="header" href="#调试-webassembly">调试 Webassembly</a></h1>
+<p>以下步骤描述了在 Wasmtime 中调试 WebAssembly 模块的常用方法:</p>
+<ol>
+<li>
+<p>在启用调试信息的情况下编译 WebAssembly，通常是 <code>-g</code>; 例如:</p>
+<pre><code class="language-shell">clang foo.c -g -o foo.wasm
+</code></pre>
+</li>
+<li>
+<p>在启用调试信息的情况下运行 Wasmtime; 这是来自 CLI 的<code>-g</code> 和嵌入式的 <code>Config::debug_info(true)</code>(<a href="Examples/debugging-webassembly.html#%E8%B0%83%E8%AF%95-webassembly">参见 Rust 嵌入式中的调试</a>)</p>
+</li>
+<li>
+<p>使用受支持的调试器：</p>
+<pre><code class="language-shell">lldb -- wasmtime run -g foo.wasm
+</code></pre>
+<pre><code class="language-shell">gdb --args wasmtime run -g foo.wasm
+</code></pre>
+</li>
+</ol>
+<p>如果你遇到麻烦，下面的讨论可能会有所帮助:</p>
+<ul>
+<li>
+<p>在 MacOS 上使用 LLDB，你可能需要运行: <code>settings set plugin.jit-loader.gdb.enable on</code>(<a href="https://github.com/bytecodealliance/wasmtime/issues/1953">#1953</a>)</p>
+</li>
+<li>
+<p>使用 LLDB，调用 <code>__vmctx.set()</code>在调用任何解引用操作符之前设置当前上下文(<a href="https://github.com/bytecodealliance/wasmtime/pull/1482">#1482</a>):</p>
+</li>
+</ul>
+<pre><code class="language-shell">(lldb) p __vmctx-&gt;set()
+(lldb) p *foo
+</code></pre>
+<ul>
+<li>实例内存的起始地址可以在 <code>__vmctx-&gt;memory</code> 中找到</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div>
                     </main>
 
