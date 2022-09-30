@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>调试 WebAssembly - wasmtime-cn</title>
+        <title>命令行选项 - wasmtime-cn</title>
 
 
         <!-- Custom HTML head -->
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../Introduction.html"><strong aria-hidden="true">1.</strong> 介绍</a></li><li class="chapter-item expanded "><a href="../Tutorial/index.html"><strong aria-hidden="true">2.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Tutorial/create-helloworld.html"><strong aria-hidden="true">2.1.</strong> 创建 hello-world.wasm</a></li><li class="chapter-item expanded "><a href="../Tutorial/run-helloworld.html"><strong aria-hidden="true">2.2.</strong> 运行 hello-world.wasm</a></li></ol></li><li class="chapter-item expanded "><a href="../Examples/index.html"><strong aria-hidden="true">3.</strong> 案例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Examples/md-parser.html"><strong aria-hidden="true">3.1.</strong> Markdown 解析器</a></li><li class="chapter-item expanded "><a href="../Examples/debugging-webassembly.html" class="active"><strong aria-hidden="true">3.2.</strong> 调试 WebAssembly</a></li><li class="chapter-item expanded "><a href="../Examples/profiling-webassembly/index.html"><strong aria-hidden="true">3.3.</strong> 分析 WebAssembly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Examples/profiling-webassembly/profiling-with-Perf.html"><strong aria-hidden="true">3.3.1.</strong> 使用 Perf 分析</a></li><li class="chapter-item expanded "><a href="../Examples/profiling-webassembly/profiling-with-VTune.html"><strong aria-hidden="true">3.3.2.</strong> 使用 VTune 分析</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../UsingWasm/index.html"><strong aria-hidden="true">4.</strong> 在你的语言中使用 WebAssembly</a></li><li class="chapter-item expanded "><a href="../UsingWasmtimeCli/index.html"><strong aria-hidden="true">5.</strong> 使用 wasmtime CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../UsingWasmtimeCli/installation.html"><strong aria-hidden="true">5.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../UsingWasmtimeCli/cli-options.html"><strong aria-hidden="true">5.2.</strong> 命令行选项</a></li></ol></li><li class="chapter-item expanded "><a href="../WritingWasm/index.html"><strong aria-hidden="true">6.</strong> 编写 WebAssembly</a></li><li class="chapter-item expanded "><a href="../Security/index.html"><strong aria-hidden="true">7.</strong> 安全</a></li><li class="chapter-item expanded "><a href="../Contributing/index.html"><strong aria-hidden="true">8.</strong> 贡献</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../Introduction.html"><strong aria-hidden="true">1.</strong> 介绍</a></li><li class="chapter-item expanded "><a href="../Tutorial/index.html"><strong aria-hidden="true">2.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Tutorial/create-helloworld.html"><strong aria-hidden="true">2.1.</strong> 创建 hello-world.wasm</a></li><li class="chapter-item expanded "><a href="../Tutorial/run-helloworld.html"><strong aria-hidden="true">2.2.</strong> 运行 hello-world.wasm</a></li></ol></li><li class="chapter-item expanded "><a href="../Examples/index.html"><strong aria-hidden="true">3.</strong> 案例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Examples/md-parser.html"><strong aria-hidden="true">3.1.</strong> Markdown 解析器</a></li><li class="chapter-item expanded "><a href="../Examples/debugging-webassembly.html"><strong aria-hidden="true">3.2.</strong> 调试 WebAssembly</a></li><li class="chapter-item expanded "><a href="../Examples/profiling-webassembly/index.html"><strong aria-hidden="true">3.3.</strong> 分析 WebAssembly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Examples/profiling-webassembly/profiling-with-Perf.html"><strong aria-hidden="true">3.3.1.</strong> 使用 Perf 分析</a></li><li class="chapter-item expanded "><a href="../Examples/profiling-webassembly/profiling-with-VTune.html"><strong aria-hidden="true">3.3.2.</strong> 使用 VTune 分析</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../UsingWasm/index.html"><strong aria-hidden="true">4.</strong> 在你的语言中使用 WebAssembly</a></li><li class="chapter-item expanded "><a href="../UsingWasmtimeCli/index.html"><strong aria-hidden="true">5.</strong> 使用 wasmtime CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../UsingWasmtimeCli/installation.html"><strong aria-hidden="true">5.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../UsingWasmtimeCli/cli-options.html" class="active"><strong aria-hidden="true">5.2.</strong> 命令行选项</a></li></ol></li><li class="chapter-item expanded "><a href="../WritingWasm/index.html"><strong aria-hidden="true">6.</strong> 编写 WebAssembly</a></li><li class="chapter-item expanded "><a href="../Security/index.html"><strong aria-hidden="true">7.</strong> 安全</a></li><li class="chapter-item expanded "><a href="../Contributing/index.html"><strong aria-hidden="true">8.</strong> 贡献</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -142,50 +142,62 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="调试-webassembly"><a class="header" href="#调试-webassembly">调试 Webassembly</a></h1>
-<p>以下步骤描述了在 Wasmtime 中调试 WebAssembly 模块的常用方法:</p>
-<ol>
-<li>
-<p>在启用调试信息的情况下编译 WebAssembly，通常是 <code>-g</code>; 例如:</p>
-<pre><code class="language-shell">clang foo.c -g -o foo.wasm
+                        <h1 id="wasmtime-的命令行工具选项"><a class="header" href="#wasmtime-的命令行工具选项">wasmtime 的命令行工具选项</a></h1>
+<p><code>wasmtime</code> CLI 被组织成几个子命令。如果没有提供子命令，将假设 <code>run</code>，即执行一个 wasm 文件。<code>wasmtime</code> 支持的子命令如下：</p>
+<h2 id="help"><a class="header" href="#help">help</a></h2>
+<p>这是一个通用的子命令，用于将帮助信息打印到终端。你可以执行以下任意数字：</p>
+<pre><code class="language-bash">wasmtime help
+wasmtime --help
+wasmtime -h
+wasmtime help run
+wasmtime run -h
 </code></pre>
-</li>
-<li>
-<p>在启用调试信息的情况下运行 Wasmtime; 这是来自 CLI 的<code>-g</code> 和嵌入式的 <code>Config::debug_info(true)</code>(<a href="#%E8%B0%83%E8%AF%95-webassembly">参见 Rust 嵌入式中的调试</a>)</p>
-</li>
-<li>
-<p>使用受支持的调试器：</p>
-<pre><code class="language-shell">lldb -- wasmtime run -g foo.wasm
+<p>如果有疑问，请尝试运行 <code>help</code> 命令以了解更多关于功能的信息！</p>
+<h2 id="run"><a class="header" href="#run">run</a></h2>
+<p>这是 <code>wasmtime</code> CLI 的主子命令，如果没有提供其他子命令，它也是默认命令。<code>run</code> 命令将执行 WebAssembly 模块。这意味着模块将被编译成原生代码，实例化，然后可选的执行导出。</p>
+<p><code>wasmtime</code> CLI 将自动挂载任何与 WASI 相关的导入功能，但此时如果你的模块导入任何其他功能，它将实例化失败。</p>
+<p><code>run</code> 命令接受一个位置参数，该参数是要运行的模块的名称:</p>
+<pre><code class="language-bash">wasmtime run foo.wasm
+wasmtime foo.wasm
 </code></pre>
-<pre><code class="language-shell">gdb --args wasmtime run -g foo.wasm
+<p>请注意，<code>wasmtime</code> CLI 可以同时接受二进制 WebAssembly 文件(<code>*.wasm</code>)以及 WebAssembly 的文本格式(<code>*.wat</code>):</p>
+<pre><code class="language-bash">wasmtime foo.wat
 </code></pre>
-</li>
-</ol>
-<p>如果你遇到麻烦，下面的讨论可能会有所帮助:</p>
-<ul>
-<li>
-<p>在 MacOS 上使用 LLDB，你可能需要运行: <code>settings set plugin.jit-loader.gdb.enable on</code>(<a href="https://github.com/bytecodealliance/wasmtime/issues/1953">#1953</a>)</p>
-</li>
-<li>
-<p>使用 LLDB，调用 <code>__vmctx.set()</code>在调用任何解引用操作符之前设置当前上下文(<a href="https://github.com/bytecodealliance/wasmtime/pull/1482">#1482</a>):</p>
-</li>
-</ul>
-<pre><code class="language-shell">(lldb) p __vmctx-&gt;set()
-(lldb) p *foo
+<p><code>run</code> 命令接受一个可选的 <code>invoke</code> 参数，该参数是要运行的模块的导出函数的名称。</p>
+<pre><code class="language-bash">wasmtime run foo.wasm --invoke initialize
 </code></pre>
-<ul>
-<li>实例内存的起始地址可以在 <code>__vmctx-&gt;memory</code> 中找到</li>
-</ul>
+<h2 id="wast"><a class="header" href="#wast">wast</a></h2>
+<p><code>wast</code> 命令执行一个 <code>*.wast</code> 文件，它是官方 WebAssembly 规范测试套件的测试格式。这个子命令将执行脚本文件，该文件支持许多指令来实例化模块、链接测试等。</p>
+<p>像这样执行:</p>
+<pre><code class="language-bash">wasmtime wast foo.wast
+</code></pre>
+<h2 id="config"><a class="header" href="#config">config</a></h2>
+<p>此子命令用于控制和编辑本地 wasmtime 配置设置。当前的主要目的是配置 <a href="#config">wasmtime 的代码缓存如何工作</a>。你可以创建一个新的配置文件，以便使用以下命令进行编辑:</p>
+<pre><code class="language-bash">wasmtime config new
+</code></pre>
+<p>然后打印出可以编辑的文件路径。</p>
+<h2 id="compile"><a class="header" href="#compile">compile</a></h2>
+<p>此子命令用于 Ahead-Of-Time (AOT)编译 WebAssembly 模块以生成“已编译的 wasm”(.cwasm)文件。</p>
+<p>然后，可以使用 <code>wasmtime run</code> 子命令来运行 AOT 编译的 WebAssembly 模块:</p>
+<pre><code class="language-bash">wasmtime compile foo.wasm
+wasmtime foo.cwasm
+</code></pre>
+<p>AOT 编译的模块可以从与 AOT 完成的模块的目标环境兼容的主机上运行。</p>
+<h2 id="settings"><a class="header" href="#settings">settings</a></h2>
+<p>此子命令用于打印给定目标的可用 Cranelift 设置。</p>
+<p>当没有选项运行时，它将打印主机目标的设置，并显示主机的 Cranelift 设置:</p>
+<pre><code class="language-bash">wasmtime settings
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../Examples/md-parser.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../UsingWasmtimeCli/installation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../Examples/profiling-webassembly/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../WritingWasm/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -195,11 +207,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../Examples/md-parser.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../UsingWasmtimeCli/installation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../Examples/profiling-webassembly/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../WritingWasm/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
