@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> 介绍</a></li><li class="chapter-item expanded "><a href="Tutorial/index.html"><strong aria-hidden="true">2.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Tutorial/create-helloworld.html"><strong aria-hidden="true">2.1.</strong> 创建 hello-world.wasm</a></li><li class="chapter-item expanded "><a href="Tutorial/run-helloworld.html"><strong aria-hidden="true">2.2.</strong> 运行 hello-world.wasm</a></li></ol></li><li class="chapter-item expanded "><a href="Examples/index.html"><strong aria-hidden="true">3.</strong> 案例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Examples/md-parser.html"><strong aria-hidden="true">3.1.</strong> Markdown 解析器</a></li><li class="chapter-item expanded "><a href="Examples/debugging-webassembly.html"><strong aria-hidden="true">3.2.</strong> 调试 WebAssembly</a></li><li class="chapter-item expanded "><a href="Examples/profiling-webassembly/index.html"><strong aria-hidden="true">3.3.</strong> 分析 WebAssembly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Examples/profiling-webassembly/profiling-with-Perf.html"><strong aria-hidden="true">3.3.1.</strong> 使用 Perf 分析</a></li><li class="chapter-item expanded "><a href="Examples/profiling-webassembly/profiling-with-VTune.html"><strong aria-hidden="true">3.3.2.</strong> 使用 VTune 分析</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="UsingWasm/index.html"><strong aria-hidden="true">4.</strong> 在你的语言中使用 WebAssembly</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/index.html"><strong aria-hidden="true">5.</strong> 使用 wasmtime CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="UsingWasmtimeCli/installation.html"><strong aria-hidden="true">5.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/cli-options.html"><strong aria-hidden="true">5.2.</strong> 命令行选项</a></li></ol></li><li class="chapter-item expanded "><a href="WritingWasm/index.html"><strong aria-hidden="true">6.</strong> 编写 WebAssembly</a></li><li class="chapter-item expanded "><a href="Security/index.html"><strong aria-hidden="true">7.</strong> 安全</a></li><li class="chapter-item expanded "><a href="Contributing/index.html"><strong aria-hidden="true">8.</strong> 贡献</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> 介绍</a></li><li class="chapter-item expanded "><a href="Tutorial/index.html"><strong aria-hidden="true">2.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Tutorial/create-helloworld.html"><strong aria-hidden="true">2.1.</strong> 创建 hello-world.wasm</a></li><li class="chapter-item expanded "><a href="Tutorial/run-helloworld.html"><strong aria-hidden="true">2.2.</strong> 运行 hello-world.wasm</a></li></ol></li><li class="chapter-item expanded "><a href="Examples/index.html"><strong aria-hidden="true">3.</strong> 案例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Examples/md-parser.html"><strong aria-hidden="true">3.1.</strong> Markdown 解析器</a></li><li class="chapter-item expanded "><a href="Examples/debugging-webassembly.html"><strong aria-hidden="true">3.2.</strong> 调试 WebAssembly</a></li><li class="chapter-item expanded "><a href="Examples/profiling-webassembly/index.html"><strong aria-hidden="true">3.3.</strong> 分析 WebAssembly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Examples/profiling-webassembly/profiling-with-Perf.html"><strong aria-hidden="true">3.3.1.</strong> 使用 Perf 分析</a></li><li class="chapter-item expanded "><a href="Examples/profiling-webassembly/profiling-with-VTune.html"><strong aria-hidden="true">3.3.2.</strong> 使用 VTune 分析</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="UsingWasm/index.html"><strong aria-hidden="true">4.</strong> 在你的语言中使用 WebAssembly</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/index.html"><strong aria-hidden="true">5.</strong> 使用 wasmtime CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="UsingWasmtimeCli/installation.html"><strong aria-hidden="true">5.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/cli-options.html"><strong aria-hidden="true">5.2.</strong> 命令行选项</a></li><li class="chapter-item expanded "><a href="UsingWasmtimeCli/cache-configuration.html"><strong aria-hidden="true">5.3.</strong> 缓存配置</a></li></ol></li><li class="chapter-item expanded "><a href="WritingWasm/index.html"><strong aria-hidden="true">6.</strong> 编写 WebAssembly</a></li><li class="chapter-item expanded "><a href="Security/index.html"><strong aria-hidden="true">7.</strong> 安全</a></li><li class="chapter-item expanded "><a href="Contributing/index.html"><strong aria-hidden="true">8.</strong> 贡献</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -410,6 +410,166 @@ wasmtime foo.cwasm
 <p>当没有选项运行时，它将打印主机目标的设置，并显示主机的 Cranelift 设置:</p>
 <pre><code class="language-bash">wasmtime settings
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="wasmtime-的缓存配置"><a class="header" href="#wasmtime-的缓存配置">wasmtime 的缓存配置</a></h1>
+<p>配置文件使用 <a href="https://github.com/toml-lang/toml">toml</a> 格式。你可以用下面语句在默认位置创建一个配置文件：</p>
+<pre><code class="language-bash">wasmtime config new
+</code></pre>
+<p>无论成功与否，它都会打印位置。请参考 <code>--help</code> 消息以使用自定义位置。</p>
+<p>除 <code>enabled</code> 外，所有设置都是可选的。如果未指定该设置，则使用默认值。因此，如果你不知道使用什么值，就不要指定它们。将来可能会调整默认值。</p>
+<p>Wasmtime 假设所有选项都在 <code>cache</code> 部分中。</p>
+<p>配置样例：</p>
+<pre><code class="language-toml">[cache]
+enabled = true
+directory = &quot;/nfs-share/wasmtime-cache/&quot;
+cleanup-interval = &quot;30m&quot;
+files-total-size-soft-limit = &quot;1Gi&quot;
+</code></pre>
+<p>请参考<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>部分了解其工作原理。</p>
+<p>如果你认为应该对某些默认值进行调优，应该引入一些新的设置，或者应该更改某些行为，那么欢迎你对此进行讨论并贡献给 <a href="https://github.com/bytecodealliance/wasmtime">Wasmtime 代码仓库</a>。</p>
+<h2 id="设置-enabled"><a class="header" href="#设置-enabled">设置 enabled</a></h2>
+<ul>
+<li><strong>类型</strong>：boolean</li>
+<li><strong>格式</strong>：<code>true | false</code></li>
+<li><strong>默认</strong>：<code>true</code></li>
+</ul>
+<p>指定是否使用缓存系统。</p>
+<p>这个字段是强制性的。当未指定配置文件且默认位置不存在任何配置文件时，将使用默认值。</p>
+<h2 id="设置-directory"><a class="header" href="#设置-directory">设置 directory</a></h2>
+<ul>
+<li><strong>类型</strong>：string(path)</li>
+<li><strong>默认</strong>：在<a href="https://crates.io/crates/directories">目录</a> crate 中查找 <code>cache_dir</code></li>
+</ul>
+<p>指定缓存目录的位置。必须是绝对路径。</p>
+<h2 id="设置-worker-event-queue-size"><a class="header" href="#设置-worker-event-queue-size">设置 worker-event-queue-size</a></h2>
+<ul>
+<li><strong>类型</strong>：string(SI prefix)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(K | M | G | T | P)?&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;16&quot;</code></li>
+</ul>
+<p><a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>事件队列的大小。如果队列已满，传入的缓存使用事件将被删除。</p>
+<h2 id="设置-baseline-compression-level"><a class="header" href="#设置-baseline-compression-level">设置 baseline-compression-level</a></h2>
+<ul>
+<li><strong>类型</strong>：integer</li>
+<li><strong>默认</strong>：<code>3</code>，默认的 zstd 压缩级别</li>
+</ul>
+<p><a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>写入新缓存文件时使用的压缩级别。Wasmtime 使用 <a href="https://facebook.github.io/zstd/">zstd</a> 压缩。</p>
+<h2 id="设置-optimized-compression-level"><a class="header" href="#设置-optimized-compression-level">设置 optimized-compression-level</a></h2>
+<ul>
+<li><strong>类型</strong>：integer</li>
+<li><strong>默认</strong>：<code>20</code></li>
+</ul>
+<p>当<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>决定重新压缩缓存文件时使用的压缩级别。Wasmtime 使用 <a href="https://facebook.github.io/zstd/">zstd</a> 压缩。</p>
+<h2 id="设置-optimized-compression-usage-counter-threshold"><a class="header" href="#设置-optimized-compression-usage-counter-threshold">设置 optimized-compression-usage-counter-threshold</a></h2>
+<ul>
+<li><strong>类型</strong>：string(SI prefix)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(K | M | G | T | P)?&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;256&quot;</code></li>
+</ul>
+<p><a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>重新压缩缓存文件的条件之一是文件的使用次数超过这个阈值。</p>
+<h2 id="设置-cleanup-interval"><a class="header" href="#设置-cleanup-interval">设置 cleanup-interval</a></h2>
+<ul>
+<li><strong>类型</strong>：string(duration)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(s | m | h | d )&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;1h&quot;</code></li>
+</ul>
+<p>当<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>收到<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>正在更新缓存文件的通知，并且自上次清理以来已经过了这个时间间隔时，工作线程将尝试进行新的清理。</p>
+<p>请同时参考 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-allowed-clock-drift-for-files-from-future"><code>设置 allowed-clock-drift-for-files-from-future</code></a></p>
+<h2 id="设置-optimizing-compression-task-timeout"><a class="header" href="#设置-optimizing-compression-task-timeout">设置 optimizing-compression-task-timeout</a></h2>
+<ul>
+<li><strong>类型</strong>：string(duration)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(s | m | h | d )&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;30m&quot;</code></li>
+</ul>
+<p>当<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>决定重新压缩缓存文件时，它确保在上一个 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-optimizing-compression-task-timeout"><code>optimizing-compression-task-timeout</code></a> 间隔内没有其他工作线程启动该文件的任务。如果一些工作线程已经开始工作，其他工作线程就会跳过这个任务。</p>
+<p>请同时参考 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-allowed-clock-drift-for-files-from-future"><code>设置 allowed-clock-drift-for-files-from-future</code></a></p>
+<h2 id="设置-allowed-clock-drift-for-files-from-future"><a class="header" href="#设置-allowed-clock-drift-for-files-from-future">设置 allowed-clock-drift-for-files-from-future</a></h2>
+<ul>
+<li><strong>类型</strong>：string(duration)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(s | m | h | d )&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;1d&quot;</code></li>
+</ul>
+<h3 id="locks"><a class="header" href="#locks">Locks</a></h3>
+<p>当<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>线程试图为某个任务获取一个锁时，它会检查其他工作线程是否已经获取了这样一个锁。为了容错并最终执行每个任务，锁会在一段时间后过期。然而，由于时钟漂移和不同的时区，将来可能会创建一些锁。此设置定义了这些锁的公差限制。如果系统中的时间已经改变(即两年后) ，<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>应该仍然能够正常工作。因此，这些锁将被视为过期(假设公差不太大)。</p>
+<h3 id="缓存文件"><a class="header" href="#缓存文件">缓存文件</a></h3>
+<p>与锁类似，缓存文件或其元数据可能在遥远的将来有修改时间。缓存系统试图尽可能长地保存这些文件。如果未达到限制，则不会删除缓存文件。否则，它们将被视为最古老的文件，因此它们可能会幸存下来。如果用户实际使用缓存文件，则修改时间将更新。</p>
+<h2 id="设置-file-count-soft-limit"><a class="header" href="#设置-file-count-soft-limit">设置 file-count-soft-limit</a></h2>
+<ul>
+<li><strong>类型</strong>：string(SI prefix)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(K | M | G | T | P)?&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;65536&quot;</code></li>
+</ul>
+<p>缓存目录中文件计数的软限制。</p>
+<p>这不包括带有元数据的文件。要了解更多信息，请参考<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>部分。</p>
+<h2 id="设置-files-total-size-soft-limit"><a class="header" href="#设置-files-total-size-soft-limit">设置 files-total-size-soft-limit</a></h2>
+<ul>
+<li><strong>类型</strong>：string(disk space)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}(K | Ki | M | Mi | G | Gi | T | Ti | P | Pi)?&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;512Mi&quot;</code></li>
+</ul>
+<p>缓存目录中文件的总大小的软限制。</p>
+<p>这不包括带有元数据的文件。要了解更多信息，请参考<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>部分。</p>
+<p>这是文件大小，而不是磁盘上物理占用的空间。</p>
+<h2 id="设置-file-count-limit-percent-if-deleting"><a class="header" href="#设置-file-count-limit-percent-if-deleting">设置 file-count-limit-percent-if-deleting</a></h2>
+<ul>
+<li><strong>类型</strong>：string(percent)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}%&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;70%&quot;</code></li>
+</ul>
+<p>如果超过 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-file-count-soft-limit"><code>file-count-soft-limit</code></a>，并且<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B">缓存工作线程</a>执行清除任务，那么工作线程将删除一些缓存文件，因此在任务之后，文件计数不应该超过 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-file-count-soft-limit"><code>file-count-soft-limit</code></a> * <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-file-count-limit-percent-if-deleting"><code>file-count-limit-percent-if-deleting</code></a>。</p>
+<p>这不包括带有元数据的文件。要了解更多信息，请参考<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>部分。</p>
+<h2 id="设置-files-total-size-limit-percent-if-deleting"><a class="header" href="#设置-files-total-size-limit-percent-if-deleting">设置 files-total-size-limit-percent-if-deleting</a></h2>
+<ul>
+<li><strong>类型</strong>：string(percent)</li>
+<li><strong>格式</strong>：<code>&quot;{integer}%&quot;</code></li>
+<li><strong>默认</strong>：<code>&quot;70%&quot;</code></li>
+</ul>
+<p>如果超过了 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-files-total-size-soft-limit"><code>files-total-size-soft-limit</code></a>，并且 <a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">缓存工作线程</a> 执行了清除任务，那么工作线程将删除一些缓存文件，因此在任务之后，文件总大小不应该超过 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-files-total-size-soft-limit"><code>files-total-size-soft-limit</code></a> * <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-files-total-size-limit-percent-if-deleting"><code>files-total-size-limit-cent-If-delete</code></a>。</p>
+<p>这不包括带有元数据的文件。要了解更多信息，请参考<a href="UsingWasmtimeCli/cache-configuration.html#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F">缓存系统</a>部分。</p>
+<h1 id="缓存是如何工作的"><a class="header" href="#缓存是如何工作的">缓存是如何工作的？</a></h1>
+<p>这是一个实现细节，将来可能会改变。这里提供的信息旨在帮助理解整体情况和配置缓存。</p>
+<p>有两个主要组件-缓存系统和缓存工作线程。</p>
+<h2 id="缓存系统"><a class="header" href="#缓存系统">缓存系统</a></h2>
+<p>处理 GET 和 UPDATE 缓存请求。</p>
+<ul>
+<li><strong>GET 请求</strong> - 只是从磁盘加载缓存，如果它在那里。</li>
+<li><strong>UPDATE 请求</strong> - 使用 <a href="https://facebook.github.io/zstd/">zstd</a> 和 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-baseline-compression-level"><code>baseline-compression-level</code></a> 接收到的数据，然后将数据写入磁盘。</li>
+</ul>
+<p>如果成功处理请求，它将使用队列通知缓存工作器此事件。<a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-worker-event-queue-size"><code>worker-event-queue-size</code></a> 大小有限。如果已满，它将删除新事件，直到缓存工作线程从队列中弹出某个事件。</p>
+<h2 id="缓存工作线程"><a class="header" href="#缓存工作线程">缓存工作线程</a></h2>
+<p>缓存工作线程在一个优先级较低的线程中运行，并在循环中从队列中弹出事件，逐个处理这些事件。</p>
+<h3 id="根据-get-请求"><a class="header" href="#根据-get-请求">根据 GET 请求</a></h3>
+<ol>
+<li>
+<p>读取缓存文件的统计文件，增加使用率计数器并将其写回磁盘。</p>
+</li>
+<li>
+<p>如果满足以下所有条件，尝试重新压缩缓存文件:</p>
+<ul>
+<li>使用率计数器超过 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-optimized-compression-usage-counter-threshold"><code>optimized-compression-usage-count-threshold</code></a>,</li>
+<li>文件的压缩级别低于 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-optimized-compression-level"><code>optimizing-compression-task-timeout</code></a>,</li>
+<li>在 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-optimizing-compression-task-timeout"><code>optimizing-compression-task-timeout</code></a> 间隔内，没有其他工作线程开始处理这个特定的任务。</li>
+</ul>
+<p>在重新压缩时，<a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-optimized-compression-level"><code>optimized-compression-level</code></a> 用作压缩级别。</p>
+</li>
+</ol>
+<h3 id="根据-update-请求"><a class="header" href="#根据-update-请求">根据 UPDATE 请求</a></h3>
+<ol>
+<li>
+<p>为缓存文件编写一个新的统计文件。</p>
+</li>
+<li>
+<p>如果在上一次 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-cleanup-interval"><code>cleanup-interval</code></a> 内没有工作线程尝试清理缓存，则清理该缓存。在此任务期间:</p>
+<ul>
+<li>将删除缓存目录中所有无法识别的文件和过期的任务锁</li>
+<li>如果超过 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-file-count-soft-limit"><code>file-count-soft-limit</code></a> 或 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-files-total-size-limit-percent-if-deleting"><code>files-total-size-soft-limit</code></a>，则将根据 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-file-count-limit-percent-if-deleting"><code>file-count-limit-percent-if-deleting</code></a> 和 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-files-total-size-limit-percent-if-deleting"><code>files-total-size-limit-percent-if-deleting</code></a> 来删除已识别的文件。Wasmtime 使用 <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)">最少最近使用(LRU)</a> 缓存替换策略，并要求文件系统维护文件的适当 mtime (修改时间)。具有未来 mtimes 的文件被特别处理-更多细节在 <a href="UsingWasmtimeCli/cache-configuration.html#%E8%AE%BE%E7%BD%AE-allowed-clock-drift-for-files-from-future"><code>allowed-clock-drift-for-files-from-future</code></a>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="元数据文件"><a class="header" href="#元数据文件">元数据文件</a></h3>
+<ul>
+<li>每个缓存的 WebAssembly 模块都有自己的统计文件</li>
+<li>每个锁都是一个文件</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div>
                     </main>
 
