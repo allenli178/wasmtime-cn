@@ -14,6 +14,7 @@
 - [使用 wasmtime CLI](./UsingWasmtimeCli/index.md)
   - [安装](./UsingWasmtimeCli/installation.md)
   - [命令行选项](./UsingWasmtimeCli/cli-options.md)
+  - [缓存配置](./UsingWasmtimeCli/cache-configuration.md)
 - [编写 WebAssembly](./WritingWasm/index.md)
 - [安全](./Security/index.md)
 - [贡献](./Contributing/index.md)
